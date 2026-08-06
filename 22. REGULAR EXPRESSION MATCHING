@@ -1,0 +1,41 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+class Solution 
+{
+private:
+    bool solve(int i, int j, const string& s, const string& p, vector<vector<int>>& memo) 
+{
+        if (j == p.length()) 
+        {
+            return i == s.length();
+        }
+
+        if (memo[i][j] != -1)
+        {
+            return memo[i][j];
+        }
+
+        bool first_match = (i < s.length() && (p[j] == s[i] || p[j] == '.'));
+        bool ans = false;
+      
+        if (j + 1 < p.length() && p[j + 1] == '*')
+        {
+            ans = solve(i, j + 2, s, p, memo) || (first_match && solve(i + 1, j, s, p, memo));
+        }
+        else 
+        { 
+            ans = first_match && solve(i + 1, j + 1, s, p, memo);
+        }
+
+        return memo[i][j] = ans;
+    }
+
+public:
+    bool isMatch(string s, string p)
+    {
+        vector<vector<int>> memo(s.length() + 1, vector<int>(p.length() + 1, -1));
+        return solve(0, 0, s, p, memo);
+    }
+};
