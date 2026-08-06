@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+struct Contact {
+    char name[50];
+    char phone[15];
+};
+
+void saveContact() {
+    FILE* file = fopen("contacts.bin", "ab");
+    if (!file) return;
+
+    struct Contact c = {"John Doe", "+123456789"};
+    fwrite(&c, sizeof(struct Contact), 1, file);
+    fclose(file);
+    printf("Contact saved successfully.\n");
+}
+
+void readContacts() {
+    FILE* file = fopen("contacts.bin", "rb");
+    if (!file) return;
+
+    struct Contact c;
+    while (fread(&c, sizeof(struct Contact), 1, file)) {
+        printf("Name: %s, Phone: %s\n", c.name, c.phone);
+    }
+    fclose(file);
+}
+
+int main() {
+    saveContact();
+    readContacts();
+    return 0;
+}
