@@ -1,0 +1,14 @@
+#include <stdio.h>
+
+void customStrcpy(char* dest, const char* src) {
+    while ((*dest++ = *src++));
+}
+
+int main() {
+    char source[] = "Open Source Code";
+    char destination[50];
+    
+    customStrcpy(destination, source);
+    printf("Copied String: %s\n", destination);
+    return 0;
+}
