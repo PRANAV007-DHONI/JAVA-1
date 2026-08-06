@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[] = "GitHub,C-Language,Programming,Intermediate";
+    char* token = strtok(str, ",");
+    
+    int count = 1;
+    while (token != NULL) {
+        printf("Token %d: %s\n", count++, token);
+        token = strtok(NULL, ",");
+    }
+    return 0;
+}
